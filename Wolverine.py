@@ -68,7 +68,7 @@ def Knife(img, arr, l):
 
 ############################ Main ############################
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)  # 開啟攝影機的編號  可能要自己試一下
 
 mpHands = mp.solutions.hands
 hands = mpHands.Hands(False, 2)
@@ -83,10 +83,10 @@ while True:
     ret, img = cap.read()
     img = img[:, ::-1].copy()  # 鏡像
     if ret:
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # OpenCV 是 BGR 編碼
         result = hands.process(imgRGB)
 
-        if result.multi_hand_landmarks:
+        if result.multi_hand_landmarks:  # 偵測到手
             l += add
 
             if l > L:
