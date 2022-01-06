@@ -51,13 +51,14 @@ def Knife(img, arr, l):
 
         color = (0, 0, 0)  # 刀的顏色
         # color = (20, 75, 125) # 香的顏色
+        t = 2  # 爪粗細
 
         cv2.line(img, p1.astype(int)[:2], (p1 +
-                 (uv1 * l * r1)).astype(int)[:2], color, 3)
+                 (uv1 * l * r1)).astype(int)[:2], color, t)
         cv2.line(img, p2.astype(int)[:2], (p2 +
-                 (uv2 * l * r2)).astype(int)[:2], color, 3)
+                 (uv2 * l * r2)).astype(int)[:2], color, t)
         cv2.line(img, p3.astype(int)[:2], (p3 +
-                 (uv3 * l * r3)).astype(int)[:2], color, 3)
+                 (uv3 * l * r3)).astype(int)[:2], color, t)
 
         # 上香版本
         # cv2.circle(img, (p1 + (uv1 * l * r1)).astype(int)[:2], 3, (0, 0, 225), -1)
@@ -71,13 +72,10 @@ cap = cv2.VideoCapture(0)
 
 mpHands = mp.solutions.hands
 hands = mpHands.Hands(False, 2)
-mpDraw = mp.solutions.drawing_utils
-handLmsStyle = mpDraw.DrawingSpec(color=(0, 0, 255), thickness=2)
-handConStyle = mpDraw.DrawingSpec(color=(0, 255, 0), thickness=4)
-imgHeight = 480
-imgWidth = 640
 
-L = 180
+
+L = 180  # 爪長
+t = 12  # 分幾禎伸縮
 
 l = 0
 add = 0
@@ -110,9 +108,9 @@ while True:
     elif input_ == ord('z'):  # 爪子縮放
 
         if add > 0:
-            add = -L / 12
+            add = -(L / t)
         else:
-            add = L / 12
+            add = (L / t)
 
 cap.release()
 cv2.destroyAllWindows()
